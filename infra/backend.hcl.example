@@ -1,0 +1,6 @@
+# Copy to backend.hcl (git-ignored) and fill in, then:
+#   terraform init -backend-config=backend.hcl
+# The state bucket is created once, by hand, before Terraform can use it
+# (the classic chicken-and-egg of remote state).
+bucket = "your-terraform-state-bucket"
+region = "ap-south-1"

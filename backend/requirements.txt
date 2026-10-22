@@ -1,0 +1,7 @@
+# Runtime dependencies - installed into the Lambda container image.
+# Versions are pinned so every build (laptop, CI, production) is identical.
+fastapi==0.159.1
+mangum==0.22.0
+pydantic==2.14.1
+email-validator==2.3.0
+boto3==1.43.117

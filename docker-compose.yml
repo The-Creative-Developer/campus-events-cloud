@@ -1,0 +1,47 @@
+# Whole stack on a laptop with one command:  docker compose up --build
+#   http://localhost:8080          the website (nginx, plays the role of CloudFront)
+#   http://localhost:8080/api/docs interactive API docs
+# No AWS account needed: DynamoDB Local stands in for DynamoDB.
+
+x-app-env: &app-env
+  EVENTS_TABLE: campus-events-events
+  REGISTRATIONS_TABLE: campus-events-registrations
+  AWS_REGION: ap-south-1
+  DYNAMODB_ENDPOINT: http://dynamodb:8000
+  # DynamoDB Local accepts any credentials; these are deliberately fake.
+  AWS_ACCESS_KEY_ID: local
+  AWS_SECRET_ACCESS_KEY: local
+  APP_VERSION: local
+  ADMIN_AUTH_DISABLED: "true"
+
+services:
+  dynamodb:
+    image: amazon/dynamodb-local:3.1.0
+    command: ["-jar", "DynamoDBLocal.jar", "-inMemory", "-sharedDb"]
+
+  seed:
+    build: { context: ./backend, target: local }
+    command: ["python3", "-m", "app.local_seed"]
+    environment: *app-env
+    depends_on: [dynamodb]
+    restart: on-failure
+
+  api:
+    build: { context: ./backend, target: local }
+    environment: *app-env
+    ports: ["8000:8000"]
+    depends_on:
+      seed: { condition: service_completed_successfully }
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 5s
+      retries: 10
+
+  web:
+    image: nginx:1.29-alpine
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./local/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports: ["8080:80"]
+    depends_on:
+      api: { condition: service_healthy }

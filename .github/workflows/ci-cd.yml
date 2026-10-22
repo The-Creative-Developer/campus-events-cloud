@@ -1,0 +1,169 @@
+# Pipeline: every push and pull request is checked; only main is deployed.
+#
+#   pull request ─► test ─┬─► container ─┐
+#                         └─► terraform ─┴─► (stop: nothing deployed from PRs)
+#   push to main ─► test ─┬─► container ─┐
+#                         └─► terraform ─┴─► deploy (needs approval in the
+#                                             "production" environment)
+name: ci-cd
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# A newer push to the same branch cancels the older, still-running pipeline.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Lint and unit tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12" # same as the Lambda runtime
+          cache: pip
+          cache-dependency-path: backend/requirements-dev.txt
+      - run: pip install -r requirements-dev.txt
+      - name: Lint (style, bugs, security smells)
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Unit tests with coverage gate
+        run: pytest --cov=app --cov-report=term-missing --cov-fail-under=80
+
+  container:
+    name: Build image and integration tests
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build the production (Lambda) image
+        run: docker build --build-arg APP_VERSION=${{ github.sha }} -t campus-events-api:${{ github.sha }} ./backend
+      - name: Smoke-test the Lambda image with the Runtime Interface Emulator
+        run: scripts/lambda_smoke_test.sh campus-events-api:${{ github.sha }}
+      - name: Scan the image for known vulnerabilities (fail on fixable CRITICAL)
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:0.76.1 \
+            image --severity CRITICAL --ignore-unfixed --exit-code 1 campus-events-api:${{ github.sha }}
+      - name: Integration test - full stack with DynamoDB Local
+        run: |
+          docker compose up --build -d --wait
+          python3 scripts/concurrency_test.py --url http://localhost:8080 --event devops-bootcamp --students 50
+      - name: Show logs if anything failed
+        if: failure()
+        run: docker compose logs
+      - if: always()
+        run: docker compose down -v
+
+  terraform:
+    name: Terraform format and validate
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - uses: actions/checkout@v7
+      - uses: hashicorp/setup-terraform@v4
+      - run: terraform fmt -check -recursive
+      - run: terraform init -backend=false -input=false
+      - run: terraform validate
+
+  deploy:
+    name: Deploy to AWS
+    needs: [container, terraform]
+    # Only from main, and only once the AWS side has been set up (see README).
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && vars.DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    # The "production" environment can require a reviewer's approval, and is
+    # the only place the AWS role trusts (see infra/github_oidc.tf).
+    environment:
+      name: production
+      url: ${{ vars.SITE_URL }}
+    permissions:
+      contents: read
+      id-token: write # lets the job request a GitHub OIDC token for AWS
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      API_FUNCTION: ${{ vars.API_FUNCTION_NAME }}
+      WORKER_FUNCTION: ${{ vars.WORKER_FUNCTION_NAME }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Get temporary AWS credentials (no stored keys)
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Log in to ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push image tagged with the commit SHA
+        id: image
+        run: |
+          IMAGE="${{ steps.ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:${{ github.sha }}"
+          docker build --provenance=false --build-arg APP_VERSION=${{ github.sha }} -t "$IMAGE" ./backend
+          docker push "$IMAGE"
+          echo "uri=$IMAGE" >> "$GITHUB_OUTPUT"
+
+      - name: Publish a new Lambda version (not live yet)
+        id: publish
+        run: |
+          PREVIOUS=$(aws lambda get-alias --function-name "$API_FUNCTION" --name live --query FunctionVersion --output text)
+          echo "previous=$PREVIOUS" >> "$GITHUB_OUTPUT"
+          aws lambda update-function-code --function-name "$API_FUNCTION" --image-uri "${{ steps.image.outputs.uri }}" > /dev/null
+          aws lambda wait function-updated-v2 --function-name "$API_FUNCTION"
+          VERSION=$(aws lambda publish-version --function-name "$API_FUNCTION" \
+            --description "${{ github.sha }}" --query Version --output text)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Published version $VERSION (live is still $PREVIOUS)"
+
+      - name: Smoke-test the new version before it gets any traffic
+        run: |
+          aws lambda invoke --function-name "$API_FUNCTION" --qualifier "${{ steps.publish.outputs.version }}" \
+            --cli-binary-format raw-in-base64-out --payload file://scripts/health-event.json response.json > /dev/null
+          cat response.json
+          python3 -c 'import json; r = json.load(open("response.json")); assert r["statusCode"] == 200, r'
+
+      - name: Switch live traffic to the new version
+        run: |
+          aws lambda update-alias --function-name "$API_FUNCTION" --name live \
+            --function-version "${{ steps.publish.outputs.version }}" > /dev/null
+
+      - name: Update the email worker
+        run: |
+          aws lambda update-function-code --function-name "$WORKER_FUNCTION" --image-uri "${{ steps.image.outputs.uri }}" > /dev/null
+          aws lambda wait function-updated-v2 --function-name "$WORKER_FUNCTION"
+
+      - name: Upload the website and clear the CDN cache
+        run: |
+          aws s3 sync frontend/ "s3://${{ vars.SITE_BUCKET }}/" --delete
+          aws cloudfront create-invalidation --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" --paths "/*" > /dev/null
+
+      - name: Post-deploy check through the public URL
+        run: |
+          for i in $(seq 1 10); do
+            BODY=$(curl -sf "${{ vars.SITE_URL }}/api/health") && echo "$BODY" | grep -q "${{ github.sha }}" && { echo "$BODY"; exit 0; }
+            sleep 6
+          done
+          echo "Public health check did not return the new version"; exit 1
+
+      - name: Roll back if anything after the switch failed
+        if: failure() && steps.publish.outputs.previous != ''
+        run: |
+          echo "Rolling back alias 'live' to version ${{ steps.publish.outputs.previous }}"
+          aws lambda update-alias --function-name "$API_FUNCTION" --name live \
+            --function-version "${{ steps.publish.outputs.previous }}"

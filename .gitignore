@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Terraform: state can contain secrets and belongs in the S3 backend, never in git.
+# (.terraform.lock.hcl IS committed - it pins provider versions.)
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+backend.hcl
+crash.log
+
+# Secrets and local env
+.env
+.env.*
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

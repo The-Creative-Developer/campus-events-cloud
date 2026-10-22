@@ -1,0 +1,8 @@
+# Copy to terraform.tfvars (git-ignored) and adjust.
+github_repo  = "The-Creative-Developer/campus-events-cloud"
+alert_email  = "cloud-team@example.edu"
+sender_email = "events@example.edu"
+
+# Optional custom domain (needs a Route 53 hosted zone):
+# domain_name    = "events.example.edu"
+# hosted_zone_id = "Z0123456789ABCDEFGHIJ"

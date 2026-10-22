@@ -1,0 +1,15 @@
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+# E/F: errors, I: import order, B: likely bugs, UP: modern syntax, S: security (bandit)
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["B008"]  # FastAPI's Depends() in default arguments is intended
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "S106"]  # assert and dummy secrets are fine in tests
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

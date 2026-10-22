@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 860" width="1280" height="860" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="AWS architecture for a college event registration website">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#414d5c"/></marker><marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a96a8"/></marker></defs>
+<rect width="1280" height="860" fill="#ffffff"/>
+<text x="30" y="40" font-size="22" font-weight="700" fill="#16191f" text-anchor="start">Campus Event Registration — AWS Architecture</text>
+<text x="30" y="62" font-size="13" font-weight="400" fill="#4b5563" text-anchor="start">Serverless: scales with traffic, multi-AZ by default, near-zero cost when idle</text>
+<rect x="30" y="180" width="170" height="70" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="30" y="180" width="6" height="70" rx="3" fill="#232f3e"/>
+<text x="46" y="212.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Students</text>
+<text x="46" y="230.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">browser / phone</text>
+<rect x="30" y="390" width="170" height="70" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="30" y="390" width="6" height="70" rx="3" fill="#232f3e"/>
+<text x="46" y="422.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Organisers</text>
+<text x="46" y="440.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">club co-heads (admin)</text>
+<rect x="235" y="88" width="250" height="470" rx="12" fill="#f5f8ff" stroke="#5b7fcf" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="249" y="110" font-size="13" font-weight="600" fill="#5b7fcf" text-anchor="start">AWS global edge</text>
+<rect x="255" y="120" width="210" height="62" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="255" y="120" width="6" height="62" rx="3" fill="#8c4fff"/>
+<text x="271" y="148.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Route 53</text>
+<text x="271" y="166.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">DNS: events.&lt;college&gt;.edu</text>
+<circle cx="461" cy="124" r="11" fill="#ff9900" stroke="#ffffff" stroke-width="2"/><text x="461" y="128.5" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">1</text>
+<rect x="255" y="230" width="210" height="74" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="255" y="230" width="6" height="74" rx="3" fill="#8c4fff"/>
+<text x="271" y="256.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">CloudFront (CDN)</text>
+<text x="271" y="274.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">HTTPS, edge caching,</text>
+<text x="271" y="289.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">one domain for site + API</text>
+<circle cx="461" cy="234" r="11" fill="#ff9900" stroke="#ffffff" stroke-width="2"/><text x="461" y="238.5" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">2</text>
+<rect x="255" y="330" width="210" height="62" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="255" y="330" width="6" height="62" rx="3" fill="#dd344c"/>
+<text x="271" y="358.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">AWS WAF</text>
+<text x="271" y="376.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">rate limit, OWASP rules</text>
+<circle cx="461" cy="334" r="11" fill="#ff9900" stroke="#ffffff" stroke-width="2"/><text x="461" y="338.5" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">3</text>
+<rect x="255" y="470" width="210" height="62" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="255" y="470" width="6" height="62" rx="3" fill="#dd344c"/>
+<text x="271" y="490.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">ACM certificate</text>
+<text x="271" y="508.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">TLS cert for CloudFront,</text>
+<text x="271" y="523.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">free, auto-renewed</text>
+<rect x="520" y="88" width="735" height="470" rx="12" fill="#fff9f0" stroke="#c7790f" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="534" y="110" font-size="13" font-weight="600" fill="#c7790f" text-anchor="start">Region ap-south-1 (Mumbai)  ·  managed services span 3 Availability Zones</text>
+<rect x="545" y="120" width="210" height="66" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="545" y="120" width="6" height="66" rx="3" fill="#3f8624"/>
+<text x="561" y="142.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">S3 bucket (private)</text>
+<text x="561" y="160.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">HTML / CSS / JS</text>
+<text x="561" y="175.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">readable only by CloudFront</text>
+<circle cx="751" cy="124" r="11" fill="#ff9900" stroke="#ffffff" stroke-width="2"/><text x="751" y="128.5" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">4</text>
+<rect x="545" y="230" width="210" height="74" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="545" y="230" width="6" height="74" rx="3" fill="#8c4fff"/>
+<text x="561" y="256.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">API Gateway</text>
+<text x="561" y="274.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">HTTP API, throttling 429,</text>
+<text x="561" y="289.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">JWT check on admin routes</text>
+<circle cx="751" cy="234" r="11" fill="#ff9900" stroke="#ffffff" stroke-width="2"/><text x="751" y="238.5" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">5</text>
+<rect x="545" y="380" width="210" height="62" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="545" y="380" width="6" height="62" rx="3" fill="#dd344c"/>
+<text x="561" y="408.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Cognito</text>
+<text x="561" y="426.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">organiser login → JWT</text>
+<rect x="800" y="230" width="200" height="74" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="800" y="230" width="6" height="74" rx="3" fill="#ed7100"/>
+<text x="816" y="256.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Lambda: API</text>
+<text x="816" y="274.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">FastAPI in a container,</text>
+<text x="816" y="289.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">alias &#x27;live&#x27;, auto-scales</text>
+<circle cx="996" cy="234" r="11" fill="#ff9900" stroke="#ffffff" stroke-width="2"/><text x="996" y="238.5" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">6</text>
+<rect x="1035" y="120" width="200" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="1035" y="120" width="6" height="86" rx="3" fill="#2e73b8"/>
+<text x="1051" y="145.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">DynamoDB</text>
+<text x="1051" y="163.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">events · registrations</text>
+<text x="1051" y="178.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">on-demand, PITR backups,</text>
+<text x="1051" y="193.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">encrypted at rest</text>
+<circle cx="1231" cy="124" r="11" fill="#ff9900" stroke="#ffffff" stroke-width="2"/><text x="1231" y="128.5" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">7</text>
+<rect x="800" y="380" width="200" height="62" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="800" y="380" width="6" height="62" rx="3" fill="#e7157b"/>
+<text x="816" y="408.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">SQS queue</text>
+<text x="816" y="426.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">confirmation emails</text>
+<circle cx="996" cy="384" r="11" fill="#ff9900" stroke="#ffffff" stroke-width="2"/><text x="996" y="388.5" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">8</text>
+<rect x="800" y="476" width="200" height="56" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="800" y="476" width="6" height="56" rx="3" fill="#e7157b"/>
+<text x="816" y="501.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Dead-letter queue</text>
+<text x="816" y="519.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">after 5 failed tries</text>
+<rect x="1035" y="380" width="200" height="62" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="1035" y="380" width="6" height="62" rx="3" fill="#ed7100"/>
+<text x="1051" y="408.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Lambda: worker</text>
+<text x="1051" y="426.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">sends emails in batches</text>
+<circle cx="1231" cy="384" r="11" fill="#ff9900" stroke="#ffffff" stroke-width="2"/><text x="1231" y="388.5" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">9</text>
+<rect x="1035" y="476" width="200" height="56" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="1035" y="476" width="6" height="56" rx="3" fill="#e7157b"/>
+<text x="1051" y="501.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Amazon SES</text>
+<text x="1051" y="519.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">email → student inbox</text>
+<path d="M200,200 L255,158" fill="none" stroke="#8a96a8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-muted)"/>
+<rect x="209" y="160" width="28.9" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="214" y="172" font-size="11" font-weight="400" fill="#414d5c" text-anchor="start" font-style="italic">DNS</text>
+<path d="M200,222 L255,262" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="207.25" y="220" width="41.5" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="228" y="232" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">HTTPS</text>
+<path d="M200,410 L255,290" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="158.35" y="324" width="79.3" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="198" y="336" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">HTTPS + JWT</text>
+<path d="M360,304 L360,330" fill="none" stroke="#8a96a8" stroke-width="1.6" marker-start="url(#arrow-muted)" marker-end="url(#arrow-muted)"/>
+<path d="M465,248 L505,248 L505,153 L545,153" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="467.5" y="193" width="73.0" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="504" y="205" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">/*  static</text>
+<path d="M465,280 L545,280" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="481.1" y="262" width="47.8" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="505" y="274" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">/api/*</text>
+<path d="M200,435 L500,435 L500,411 L545,411" fill="none" stroke="#8a96a8" stroke-width="1.6" marker-end="url(#arrow-muted)"/>
+<rect x="312.95" y="419" width="54.1" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="340" y="431" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">sign in</text>
+<path d="M650,304 L650,380" fill="none" stroke="#8a96a8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-muted)"/>
+<rect x="613.5" y="334" width="73.0" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="650" y="346" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">verify JWT</text>
+<path d="M755,267 L800,267" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M900,230 L900,163 L1035,163" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="921.05" y="145" width="91.89999999999999" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="967" y="157" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">1 transaction</text>
+<text x="967" y="181" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">seat++ &amp; insert</text>
+<path d="M900,304 L900,380" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="872.95" y="334" width="54.1" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="900" y="346" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">enqueue</text>
+<path d="M1000,411 L1035,411" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M900,442 L900,476" fill="none" stroke="#8a96a8" stroke-width="1.6" marker-end="url(#arrow-muted)"/>
+<path d="M1135,442 L1135,476" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="30" y="580" width="1225" height="120" rx="12" fill="#f6f7f9" stroke="#5a6b86" stroke-width="1.5"/>
+<text x="44" y="602" font-size="13" font-weight="600" fill="#5a6b86" text-anchor="start">Observability &amp; security (all components)</text>
+<rect x="48" y="614" width="225" height="70" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="48" y="614" width="6" height="70" rx="3" fill="#5a6b86"/>
+<text x="64" y="646.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">CloudWatch Logs</text>
+<text x="64" y="664.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">JSON logs, 30-day retention</text>
+<rect x="289" y="614" width="225" height="70" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="289" y="614" width="6" height="70" rx="3" fill="#5a6b86"/>
+<text x="305" y="638.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">CloudWatch Alarms</text>
+<text x="305" y="656.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">5xx, p95 latency, throttles,</text>
+<text x="305" y="671.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">DLQ depth</text>
+<rect x="530" y="614" width="225" height="70" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="530" y="614" width="6" height="70" rx="3" fill="#5a6b86"/>
+<text x="546" y="646.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">X-Ray</text>
+<text x="546" y="664.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">per-request trace</text>
+<rect x="771" y="614" width="225" height="70" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="771" y="614" width="6" height="70" rx="3" fill="#5a6b86"/>
+<text x="787" y="646.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">SNS → email</text>
+<text x="787" y="664.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">pages the on-call co-head</text>
+<rect x="1012" y="614" width="225" height="70" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="1012" y="614" width="6" height="70" rx="3" fill="#dd344c"/>
+<text x="1028" y="638.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">IAM roles</text>
+<text x="1028" y="656.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">least privilege per function,</text>
+<text x="1028" y="671.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">no keys in code</text>
+<rect x="30" y="718" width="1225" height="120" rx="12" fill="#f6f8fa" stroke="#24292f" stroke-width="1.5"/>
+<text x="44" y="740" font-size="13" font-weight="600" fill="#24292f" text-anchor="start">Delivery (Task 3): everything above is created by Terraform and released by CI/CD</text>
+<rect x="48" y="752" width="225" height="66" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="48" y="752" width="6" height="66" rx="3" fill="#24292f"/>
+<text x="64" y="782.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">GitHub</text>
+<text x="64" y="800.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">code + Terraform + docs</text>
+<rect x="289" y="752" width="225" height="66" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="289" y="752" width="6" height="66" rx="3" fill="#24292f"/>
+<text x="305" y="782.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">GitHub Actions</text>
+<text x="305" y="800.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">test, scan, build image</text>
+<path d="M273,785 L289,785" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="530" y="752" width="225" height="66" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="530" y="752" width="6" height="66" rx="3" fill="#ed7100"/>
+<text x="546" y="782.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Amazon ECR</text>
+<text x="546" y="800.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">image tagged with git SHA</text>
+<path d="M514,785 L530,785" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="771" y="752" width="225" height="66" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="771" y="752" width="6" height="66" rx="3" fill="#ed7100"/>
+<text x="787" y="782.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Lambda alias &#x27;live&#x27;</text>
+<text x="787" y="800.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">smoke-test, then switch</text>
+<path d="M755,785 L771,785" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="1012" y="752" width="225" height="66" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="1012" y="752" width="6" height="66" rx="3" fill="#3f8624"/>
+<text x="1028" y="782.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">S3 + CloudFront</text>
+<text x="1028" y="800.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">sync site, invalidate cache</text>
+<path d="M996,785 L1012,785" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+</svg>

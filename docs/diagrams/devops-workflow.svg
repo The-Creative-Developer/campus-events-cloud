@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="DevOps workflow from code change to monitoring">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#414d5c"/></marker><marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a96a8"/></marker></defs>
+<rect width="1280" height="800" fill="#ffffff"/>
+<text x="30" y="40" font-size="22" font-weight="700" fill="#16191f" text-anchor="start">DevOps Workflow — from a code change to a monitored release</text>
+<text x="30" y="62" font-size="13" font-weight="400" fill="#4b5563" text-anchor="start">Every change takes the same automated path. Nothing reaches students untested.</text>
+<rect x="30" y="85" width="1220" height="150" rx="12" fill="#f6f8fa" stroke="#24292f" stroke-width="1.5"/>
+<text x="44" y="107" font-size="13" font-weight="600" fill="#24292f" text-anchor="start">1 · Develop (laptop)</text>
+<rect x="50" y="125" width="220" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="50" y="125" width="6" height="86" rx="3" fill="#24292f"/>
+<text x="66" y="157.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Feature branch</text>
+<text x="66" y="175.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">git switch -c fix-seat-count</text>
+<text x="66" y="190.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">small, focused commits</text>
+<rect x="310" y="125" width="220" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="310" y="125" width="6" height="86" rx="3" fill="#24292f"/>
+<text x="326" y="157.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Run locally</text>
+<text x="326" y="175.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">docker compose up</text>
+<text x="326" y="190.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">same image as production</text>
+<rect x="570" y="125" width="220" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="570" y="125" width="6" height="86" rx="3" fill="#24292f"/>
+<text x="586" y="157.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Test locally</text>
+<text x="586" y="175.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">pytest · ruff</text>
+<text x="586" y="190.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">concurrency test</text>
+<rect x="830" y="125" width="220" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="830" y="125" width="6" height="86" rx="3" fill="#24292f"/>
+<text x="846" y="157.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Pull request</text>
+<text x="846" y="175.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">review by a teammate,</text>
+<text x="846" y="190.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">CI must be green to merge</text>
+<rect x="1090" y="125" width="140" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="1090" y="125" width="6" height="86" rx="3" fill="#24292f"/>
+<text x="1106" y="165.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Merge</text>
+<text x="1106" y="183.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">to main</text>
+<path d="M270,168 L310,168" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M530,168 L570,168" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M790,168 L830,168" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M1050,168 L1090,168" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="30" y="255" width="1220" height="150" rx="12" fill="#fff9f0" stroke="#c7790f" stroke-width="1.5"/>
+<text x="44" y="277" font-size="13" font-weight="600" fill="#c7790f" text-anchor="start">2 · Continuous Integration (GitHub Actions, every push &amp; PR)</text>
+<rect x="50" y="295" width="218" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="50" y="295" width="6" height="86" rx="3" fill="#ed7100"/>
+<text x="66" y="327.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Lint</text>
+<text x="66" y="345.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">ruff: style, bugs,</text>
+<text x="66" y="360.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">security smells</text>
+<rect x="288" y="295" width="218" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="288" y="295" width="6" height="86" rx="3" fill="#ed7100"/>
+<text x="304" y="327.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Unit tests</text>
+<text x="304" y="345.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">pytest + moto (fake AWS)</text>
+<text x="304" y="360.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">coverage ≥ 80%</text>
+<path d="M268,338 L288,338" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="526" y="295" width="218" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="526" y="295" width="6" height="86" rx="3" fill="#ed7100"/>
+<text x="542" y="327.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Build image</text>
+<text x="542" y="345.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">docker build</text>
+<text x="542" y="360.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">tag = git SHA</text>
+<path d="M506,338 L526,338" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="764" y="295" width="218" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="764" y="295" width="6" height="86" rx="3" fill="#ed7100"/>
+<text x="780" y="327.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Container tests</text>
+<text x="780" y="345.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">Lambda emulator smoke test,</text>
+<text x="780" y="360.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">Trivy CVE scan, rush test</text>
+<path d="M744,338 L764,338" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="1002" y="295" width="218" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="1002" y="295" width="6" height="86" rx="3" fill="#ed7100"/>
+<text x="1018" y="327.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Terraform check</text>
+<text x="1018" y="345.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">fmt -check</text>
+<text x="1018" y="360.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">validate</text>
+<text x="1240" y="397" font-size="11.5" font-weight="400" fill="#b42318" text-anchor="end" font-style="italic">any red step = stop, nothing is deployed</text>
+<rect x="30" y="425" width="1220" height="150" rx="12" fill="#f3faf2" stroke="#3f8624" stroke-width="1.5"/>
+<text x="44" y="447" font-size="13" font-weight="600" fill="#3f8624" text-anchor="start">3 · Continuous Delivery (main only, after approval in &#x27;production&#x27; environment)</text>
+<rect x="50" y="465" width="218" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="50" y="465" width="6" height="86" rx="3" fill="#dd344c"/>
+<text x="66" y="497.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Assume AWS role</text>
+<text x="66" y="515.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">GitHub OIDC → temporary</text>
+<text x="66" y="530.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">credentials, no stored keys</text>
+<rect x="288" y="465" width="218" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="288" y="465" width="6" height="86" rx="3" fill="#ed7100"/>
+<text x="304" y="497.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Push to ECR</text>
+<text x="304" y="515.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">immutable image</text>
+<text x="304" y="530.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">:&lt;git SHA&gt;</text>
+<path d="M268,508 L288,508" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="526" y="465" width="218" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="526" y="465" width="6" height="86" rx="3" fill="#ed7100"/>
+<text x="542" y="497.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Publish version N</text>
+<text x="542" y="515.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">live alias still on N-1</text>
+<text x="542" y="530.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">(no traffic yet)</text>
+<path d="M506,508 L526,508" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="764" y="465" width="218" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="764" y="465" width="6" height="86" rx="3" fill="#ed7100"/>
+<text x="780" y="497.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Smoke test N</text>
+<text x="780" y="515.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">invoke /api/health</text>
+<text x="780" y="530.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">on version N directly</text>
+<path d="M744,508 L764,508" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="1002" y="465" width="218" height="86" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="1002" y="465" width="6" height="86" rx="3" fill="#3f8624"/>
+<text x="1018" y="497.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Switch alias → N</text>
+<text x="1018" y="515.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">sync site to S3,</text>
+<text x="1018" y="530.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">invalidate CloudFront</text>
+<path d="M982,508 L1002,508" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="30" y="595" width="1220" height="165" rx="12" fill="#f5f8ff" stroke="#5b7fcf" stroke-width="1.5"/>
+<text x="44" y="617" font-size="13" font-weight="600" fill="#5b7fcf" text-anchor="start">4 · Operate: monitor, alert, roll back</text>
+<rect x="50" y="635" width="218" height="96" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="50" y="635" width="6" height="96" rx="3" fill="#5a6b86"/>
+<text x="66" y="672.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Public check</text>
+<text x="66" y="690.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">GET /api/health returns</text>
+<text x="66" y="705.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">the new git SHA?</text>
+<rect x="288" y="635" width="218" height="96" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="288" y="635" width="6" height="96" rx="3" fill="#5a6b86"/>
+<text x="304" y="665.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">CloudWatch</text>
+<text x="304" y="683.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">JSON logs + metrics</text>
+<text x="304" y="698.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">+ X-Ray traces</text>
+<text x="304" y="713.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">dashboard</text>
+<rect x="526" y="635" width="218" height="96" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="526" y="635" width="6" height="96" rx="3" fill="#5a6b86"/>
+<text x="542" y="665.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Alarms → SNS</text>
+<text x="542" y="683.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">5xx, p95 latency,</text>
+<text x="542" y="698.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">throttles, DLQ depth</text>
+<text x="542" y="713.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">→ email on-call</text>
+<rect x="764" y="635" width="218" height="96" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="764" y="635" width="6" height="96" rx="3" fill="#dd344c"/>
+<text x="780" y="672.5" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Roll back</text>
+<text x="780" y="690.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">move alias to N-1:</text>
+<text x="780" y="705.5" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">seconds, no rebuild</text>
+<rect x="1002" y="635" width="228" height="96" rx="8" fill="#ffffff" stroke="#c6ccd5" stroke-width="1"/><rect x="1002" y="635" width="6" height="96" rx="3" fill="#24292f"/>
+<text x="1018" y="665.0" font-size="14" font-weight="650" fill="#16191f" text-anchor="start">Learn</text>
+<text x="1018" y="683.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">fix forward on a branch,</text>
+<text x="1018" y="698.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">add a test for the bug</text>
+<text x="1018" y="713.0" font-size="11.5" font-weight="400" fill="#4b5563" text-anchor="start">(blameless review)</text>
+<path d="M268,683 L288,683" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M506,683 L526,683" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M744,683 L764,683" fill="none" stroke="#8a96a8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-muted)"/>
+<path d="M982,683 L1002,683" fill="none" stroke="#414d5c" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M1160,211 L1160,245 L16,245 L16,338 L50,338" fill="none" stroke="#8a96a8" stroke-width="1.6" marker-end="url(#arrow-muted)"/>
+<path d="M1002,381 L1002,415 L16,415 L16,508 L50,508" fill="none" stroke="#8a96a8" stroke-width="1.6" marker-end="url(#arrow-muted)"/>
+<path d="M1140,551 L1140,585 L16,585 L16,683 L50,683" fill="none" stroke="#8a96a8" stroke-width="1.6" marker-end="url(#arrow-muted)"/>
+<path d="M1116,635 L1116,619 L1266,619 L1266,100 L1180,100 L1180,125" fill="none" stroke="#8a96a8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-muted)"/>
+<rect x="1150.35" y="611" width="79.3" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="1190" y="623" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">next change</text>
+<rect x="156.2" y="774" width="967.6" height="17" rx="4" fill="#ffffff" fill-opacity="0.92"/>
+<text x="640" y="786" font-size="11" font-weight="400" fill="#414d5c" text-anchor="middle" font-style="italic">Infrastructure (Terraform) is versioned in the same repo, reviewed in PRs, validated in CI, and applied by a maintainer with `terraform plan` → `apply`.</text>
+</svg>

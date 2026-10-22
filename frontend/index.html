@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campus Events</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Campus Events</h1>
+    <p>Register for workshops and talks. Seats are confirmed instantly.</p>
+  </header>
+
+  <main>
+    <section aria-labelledby="events-heading">
+      <h2 id="events-heading">Upcoming events</h2>
+      <p id="status" role="status">Loading events…</p>
+      <ul id="events"></ul>
+    </section>
+
+    <dialog id="register-dialog">
+      <form id="register-form" method="dialog">
+        <h2 id="register-title">Register</h2>
+        <label>Full name <input name="name" required minlength="2" maxlength="100"></label>
+        <label>College email <input name="email" type="email" required></label>
+        <label>Student ID <input name="student_id" required pattern="[A-Za-z0-9]{3,20}"></label>
+        <p id="form-message" role="alert"></p>
+        <div class="actions">
+          <button type="button" id="cancel">Cancel</button>
+          <button type="submit" id="submit">Confirm seat</button>
+        </div>
+      </form>
+    </dialog>
+  </main>
+
+  <footer><span id="version"></span></footer>
+  <script src="app.js"></script>
+</body>
+</html>

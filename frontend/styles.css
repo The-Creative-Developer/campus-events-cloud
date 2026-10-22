@@ -1,0 +1,86 @@
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #16191f;
+  --muted: #5f6b7a;
+  --accent: #ff9900;
+  --accent-text: #16191f;
+  --border: #d5dbe1;
+  --danger: #b42318;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1319;
+    --card: #1a212b;
+    --text: #e9edf2;
+    --muted: #9aa6b4;
+    --border: #2d3743;
+    --danger: #ff8a7a;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+header, main, footer { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+header { padding-top: 40px; }
+h1 { margin: 0 0 4px; }
+header p, footer { color: var(--muted); }
+footer { padding: 32px 16px; font-size: 0.8rem; }
+
+#events { list-style: none; padding: 0; display: grid; gap: 12px; }
+.event {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.event h3 { margin: 0 0 4px; }
+.event p { margin: 0 0 8px; color: var(--muted); }
+.seats { font-weight: 600; color: var(--text) !important; }
+.seats.full { color: var(--danger) !important; }
+
+button {
+  font: inherit;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+button[type="submit"], .event button:not(:disabled) {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+dialog {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  width: min(420px, calc(100vw - 32px));
+}
+dialog::backdrop { background: rgb(0 0 0 / 0.4); }
+label { display: block; margin-bottom: 12px; font-size: 0.9rem; }
+input {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 10px;
+  font: inherit;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+}
+.actions { display: flex; justify-content: flex-end; gap: 8px; }
+#form-message { min-height: 1.5em; font-size: 0.9rem; }
