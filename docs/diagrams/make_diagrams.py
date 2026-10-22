@@ -84,8 +84,7 @@ class Svg:
         dash = ' stroke-dasharray="5 4"' if dashed else ""
         start = f' marker-start="url(#{marker})"' if both else ""
         self.parts.append(
-            f'<path d="{d}" fill="none" stroke="{color}" stroke-width="1.6"{dash}{start} '
-            f'marker-end="url(#{marker})"/>'
+            f'<path d="{d}" fill="none" stroke="{color}" stroke-width="1.6"{dash}{start} marker-end="url(#{marker})"/>'
         )
         if label:
             lx, ly = label_at or (
@@ -111,7 +110,11 @@ def architecture():
     s = Svg(1280, 860, "AWS architecture for a college event registration website")
     s.text(30, 40, "Campus Event Registration — AWS Architecture", size=22, weight=700)
     s.text(
-        30, 62, "Serverless: scales with traffic, multi-AZ by default, near-zero cost when idle", size=13, fill="#4b5563"
+        30,
+        62,
+        "Serverless: scales with traffic, multi-AZ by default, near-zero cost when idle",
+        size=13,
+        fill="#4b5563",
     )
 
     # Users
@@ -126,14 +129,29 @@ def architecture():
     s.box(255, 470, 210, 62, "ACM certificate", ["TLS cert for CloudFront,", "free, auto-renewed"], "security")
 
     # Region
-    s.group(520, 88, 735, 470, "Region ap-south-1 (Mumbai)  ·  managed services span 3 Availability Zones",
-            "#fff9f0", "#c7790f")
+    s.group(
+        520,
+        88,
+        735,
+        470,
+        "Region ap-south-1 (Mumbai)  ·  managed services span 3 Availability Zones",
+        "#fff9f0",
+        "#c7790f",
+    )
     s.box(545, 120, 210, 66, "S3 bucket (private)", ["HTML / CSS / JS", "readable only by CloudFront"], "storage", 4)
     s.box(545, 230, 210, 74, "API Gateway", ["HTTP API, throttling 429,", "JWT check on admin routes"], "networking", 5)
     s.box(545, 380, 210, 62, "Cognito", ["organiser login → JWT"], "security")
     s.box(800, 230, 200, 74, "Lambda: API", ["FastAPI in a container,", "alias 'live', auto-scales"], "compute", 6)
-    s.box(1035, 120, 200, 86, "DynamoDB", ["events · registrations", "on-demand, PITR backups,", "encrypted at rest"],
-          "database", 7)
+    s.box(
+        1035,
+        120,
+        200,
+        86,
+        "DynamoDB",
+        ["events · registrations", "on-demand, PITR backups,", "encrypted at rest"],
+        "database",
+        7,
+    )
     s.box(800, 380, 200, 62, "SQS queue", ["confirmation emails"], "integration", 8)
     s.box(800, 476, 200, 56, "Dead-letter queue", ["after 5 failed tries"], "integration")
     s.box(1035, 380, 200, 62, "Lambda: worker", ["sends emails in batches"], "compute", 9)
@@ -170,8 +188,16 @@ def architecture():
         s.box(48 + i * 241, 614, 225, 70, title, lines, "security" if title == "IAM roles" else "ops")
 
     # Delivery band
-    s.group(30, 718, 1225, 120, "Delivery (Task 3): everything above is created by Terraform and released by CI/CD",
-            "#f6f8fa", "#24292f", dashed=False)
+    s.group(
+        30,
+        718,
+        1225,
+        120,
+        "Delivery (Task 3): everything above is created by Terraform and released by CI/CD",
+        "#f6f8fa",
+        "#24292f",
+        dashed=False,
+    )
     dev = [
         ("GitHub", ["code + Terraform + docs"], "dev"),
         ("GitHub Actions", ["test, scan, build image"], "dev"),
@@ -191,8 +217,13 @@ def architecture():
 def devops_workflow():
     s = Svg(1280, 800, "DevOps workflow from code change to monitoring")
     s.text(30, 40, "DevOps Workflow — from a code change to a monitored release", size=22, weight=700)
-    s.text(30, 62, "Every change takes the same automated path. Nothing reaches students untested.", size=13,
-           fill="#4b5563")
+    s.text(
+        30,
+        62,
+        "Every change takes the same automated path. Nothing reaches students untested.",
+        size=13,
+        fill="#4b5563",
+    )
 
     # Lane 1: develop
     s.group(30, 85, 1220, 150, "1 · Develop (laptop)", "#f6f8fa", "#24292f", dashed=False)
@@ -205,8 +236,16 @@ def devops_workflow():
         s.arrow([(x, 168), (x + 40, 168)])
 
     # Lane 2: CI
-    s.group(30, 255, 1220, 150, "2 · Continuous Integration (GitHub Actions, every push & PR)", "#fff9f0", "#c7790f",
-            dashed=False)
+    s.group(
+        30,
+        255,
+        1220,
+        150,
+        "2 · Continuous Integration (GitHub Actions, every push & PR)",
+        "#fff9f0",
+        "#c7790f",
+        dashed=False,
+    )
     ci = [
         ("Lint", ["ruff: style, bugs,", "security smells"]),
         ("Unit tests", ["pytest + moto (fake AWS)", "coverage ≥ 80%"]),
@@ -222,8 +261,16 @@ def devops_workflow():
     s.text(1240, 397, "any red step = stop, nothing is deployed", size=11.5, fill="#b42318", anchor="end", italic=True)
 
     # Lane 3: CD
-    s.group(30, 425, 1220, 150, "3 · Continuous Delivery (main only, after approval in 'production' environment)",
-            "#f3faf2", "#3f8624", dashed=False)
+    s.group(
+        30,
+        425,
+        1220,
+        150,
+        "3 · Continuous Delivery (main only, after approval in 'production' environment)",
+        "#f3faf2",
+        "#3f8624",
+        dashed=False,
+    )
     cd = [
         ("Assume AWS role", ["GitHub OIDC → temporary", "credentials, no stored keys"], "security"),
         ("Push to ECR", ["immutable image", ":<git SHA>"], "compute"),
@@ -243,8 +290,9 @@ def devops_workflow():
     s.box(288, 635, 218, 96, "CloudWatch", ["JSON logs + metrics", "+ X-Ray traces", "dashboard"], "ops")
     s.box(526, 635, 218, 96, "Alarms → SNS", ["5xx, p95 latency,", "throttles, DLQ depth", "→ email on-call"], "ops")
     s.box(764, 635, 218, 96, "Roll back", ["move alias to N-1:", "seconds, no rebuild"], "security")
-    s.box(1002, 635, 228, 96, "Learn", ["fix forward on a branch,", "add a test for the bug", "(blameless review)"],
-          "dev")
+    s.box(
+        1002, 635, 228, 96, "Learn", ["fix forward on a branch,", "add a test for the bug", "(blameless review)"], "dev"
+    )
     s.arrow([(268, 683), (288, 683)])
     s.arrow([(506, 683), (526, 683)])
     s.arrow([(744, 683), (764, 683)], muted=True, dashed=True)
@@ -256,12 +304,21 @@ def devops_workflow():
     s.arrow([(1160, 211), (1160, 245), (16, 245), (16, 338), (50, 338)], muted=True)
     s.arrow([(1002, 381), (1002, 415), (16, 415), (16, 508), (50, 508)], muted=True)
     s.arrow([(1140, 551), (1140, 585), (16, 585), (16, 683), (50, 683)], muted=True)
-    s.arrow([(1116, 635), (1116, 619), (1266, 619), (1266, 100), (1180, 100), (1180, 125)], "next change",
-            label_at=(1190, 623), muted=True, dashed=True)
+    s.arrow(
+        [(1116, 635), (1116, 619), (1266, 619), (1266, 100), (1180, 100), (1180, 125)],
+        "next change",
+        label_at=(1190, 623),
+        muted=True,
+        dashed=True,
+    )
 
     # IaC note
-    s.label(640, 786, "Infrastructure (Terraform) is versioned in the same repo, reviewed in PRs, validated in CI, "
-                      "and applied by a maintainer with `terraform plan` → `apply`.")
+    s.label(
+        640,
+        786,
+        "Infrastructure (Terraform) is versioned in the same repo, reviewed in PRs, validated in CI, "
+        "and applied by a maintainer with `terraform plan` → `apply`.",
+    )
     s.save("devops-workflow.svg")
 
 

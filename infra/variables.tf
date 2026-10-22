@@ -81,7 +81,7 @@ variable "api_throttle_burst" {
 }
 
 variable "deletion_protection" {
-  description = "Protect the DynamoDB tables from accidental terraform destroy."
+  description = "Protect the DynamoDB tables, site bucket and image registry from accidental terraform destroy."
   type        = bool
   default     = true
 }

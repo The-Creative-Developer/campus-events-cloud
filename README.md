@@ -7,6 +7,7 @@ A college event-registration website designed to survive a registration rush, ke
 | **Task 1: Cloud Architecture Case Study** | [docs/task1-architecture.md](docs/task1-architecture.md) |
 | **Task 3: DevOps and Deployment Workflow** | [docs/task3-devops-workflow.md](docs/task3-devops-workflow.md) |
 | Interview preparation and Q&A | [docs/INTERVIEW_GUIDE.md](docs/INTERVIEW_GUIDE.md) |
+| Setting it up again (local, tests, AWS) | [docs/SETUP.md](docs/SETUP.md) |
 
 ![Architecture](docs/diagrams/architecture.png)
 
@@ -105,4 +106,4 @@ aws cognito-idp admin-add-user-to-group --user-pool-id <id> --username organiser
 
 Emails: SES starts in *sandbox* mode and only sends to verified addresses. Request production access before a real event.
 
-Tear down: `terraform destroy`. Set `deletion_protection = false` first; the tables are protected on purpose.
+Tear down: `terraform apply -var deletion_protection=false`, then `terraform destroy -var deletion_protection=false`. The protection is on by default on purpose. See [docs/SETUP.md](docs/SETUP.md) for the full guide.

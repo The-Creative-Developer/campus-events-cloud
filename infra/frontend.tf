@@ -8,6 +8,8 @@
 
 resource "aws_s3_bucket" "site" {
   bucket = "${local.name}-site-${data.aws_caller_identity.current.account_id}"
+  # Allow `terraform destroy` to empty the bucket only when protection is off.
+  force_destroy = !var.deletion_protection
 }
 
 # The bucket is NOT a public website. Only CloudFront can read it.

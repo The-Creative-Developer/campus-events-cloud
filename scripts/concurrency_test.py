@@ -18,7 +18,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 def register(base_url: str, event_id: str, n: int) -> int:
     body = json.dumps({"name": f"Student {n}", "email": f"rush{n}@example.edu", "student_id": f"RUSH{n:04d}"})
-    req = urllib.request.Request(
+    req = urllib.request.Request(  # noqa: S310 (URL comes from CLI arg)
         f"{base_url}/api/events/{event_id}/registrations",
         data=body.encode(),
         headers={"Content-Type": "application/json"},

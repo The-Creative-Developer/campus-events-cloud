@@ -15,6 +15,8 @@ resource "aws_ecr_repository" "api" {
   # A tag (git SHA) can never be overwritten, so "what is running" is always
   # traceable to exactly one commit.
   image_tag_mutability = "IMMUTABLE"
+  # Allow `terraform destroy` to delete stored images only when protection is off.
+  force_delete = !var.deletion_protection
 
   image_scanning_configuration {
     scan_on_push = true
