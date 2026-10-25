@@ -27,9 +27,16 @@ data "aws_iam_policy_document" "github_assume" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_repo}:environment:production"]
+      values   = ["${local.github_subject_prefix}:environment:production"]
     }
   }
+}
+
+# Repos using GitHub's immutable OIDC subjects send "repo:owner@<id>/name@<id>"
+# instead of "repo:owner/name". The IDs never change, so a renamed or deleted
+# repo can't be re-created by someone else to inherit this role.
+locals {
+  github_subject_prefix = var.github_oidc_subject_prefix != "" ? var.github_oidc_subject_prefix : "repo:${var.github_repo}"
 }
 
 resource "aws_iam_role" "github_deploy" {

@@ -227,6 +227,6 @@ Finally, delete the state bucket from 4.3 if you don't need it any more.
 | `exec format error` in Lambda | Image built for arm64 on a Mac; rebuild with `--platform linux/amd64` |
 | `terraform apply`: image does not exist | Do steps 1 and 2 in 4.4 before the full apply |
 | `Error acquiring the state lock` | Another apply is running; wait. If it crashed: `terraform force-unlock <id>` |
-| Deploy job: `Not authorized to perform sts:AssumeRoleWithWebIdentity` | Repo name in `github_repo` doesn't match, or the job isn't running in the `production` environment |
+| Deploy job: `Not authorized to perform sts:AssumeRoleWithWebIdentity` | The OIDC subject in the role's trust policy doesn't match what GitHub sends. Run `gh api repos/OWNER/REPO/actions/oidc/customization/sub`; if `use_immutable_subject` is true, set `github_oidc_subject_prefix` to its `sub_claim_prefix`. Also check the job runs in the `production` environment |
 | Site shows old version | CloudFront cache: the invalidation step must succeed; hard-refresh the browser |
 | Emails not arriving | SES sandbox (see 4.6), or check the dead-letter queue |

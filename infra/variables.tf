@@ -28,6 +28,16 @@ variable "github_repo" {
   default     = "The-Creative-Developer/campus-events-cloud"
 }
 
+variable "github_oidc_subject_prefix" {
+  description = <<-EOT
+    The repo part of the GitHub OIDC "sub" claim. Leave empty for the classic
+    "repo:owner/name" form. Repos with immutable subjects need the ID form; get
+    it with: gh api repos/OWNER/REPO/actions/oidc/customization/sub
+  EOT
+  type        = string
+  default     = "repo:The-Creative-Developer@191368524/campus-events-cloud@1430000104"
+}
+
 variable "alert_email" {
   description = "Email that receives CloudWatch alarm notifications. Empty = no subscription."
   type        = string

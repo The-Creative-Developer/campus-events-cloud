@@ -230,7 +230,7 @@ Know the VPC vocabulary anyway:
   - **Feature flags:** deploy code switched off, then enable it without redeploying.
 - **OIDC** (be able to explain step by step):
   1. The job requests a signed token from GitHub's OIDC provider. Its claims include repo, branch and environment.
-  2. AWS STS `AssumeRoleWithWebIdentity` verifies the signature and checks the role's trust policy conditions (`aud = sts.amazonaws.com`, `sub = repo:<owner>/<repo>:environment:production`).
+  2. AWS STS `AssumeRoleWithWebIdentity` verifies the signature and checks the role's trust policy conditions (`aud = sts.amazonaws.com`, `sub = repo:<owner>@<owner-id>/<repo>@<repo-id>:environment:production`). This repo uses GitHub's *immutable* subject format, which includes the numeric IDs, so a renamed or deleted repo can't be re-created by someone else to inherit the role. The first real deploy failed until the trust policy matched this format: a good troubleshooting story.
   3. STS returns credentials that expire in about an hour.
 
   Nothing long-lived exists to leak.
